@@ -39,11 +39,12 @@ public class Workers {
         this.workerPoolExecutor.execute(job);
     }
 
-    public void terminate() throws InterruptedException{
+    public boolean terminate() throws InterruptedException{
         if(this.workerPoolExecutor != null){
             this.workerPoolExecutor.shutdown();
-            this.workerPoolExecutor.awaitTermination((long)this.terminateTimeout, TimeUnit.SECONDS);
+            return this.workerPoolExecutor.awaitTermination((long)this.terminateTimeout, TimeUnit.SECONDS);
         }
+        return true;
     }
 
     public boolean isRun() {
